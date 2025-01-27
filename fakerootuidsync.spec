@@ -1,18 +1,18 @@
-%global _version 0.0.3
-%global _release 2
+%global _version 0.0.2
+%global _release beta
 %global gittag %{_version}-%{_release}
 
-Summary: Fakeroot subuid/subgid sync tool 
+Summary: Fakeroot subuid/subgid sync tool
 Name: fakerootuidsync
 Version: %{_version}
 Release: %{_release}
 License: GPL
 Group: System Environment/Base
 
-Source0:  https://github.com/miguelgila/fakerootuidsync/archive/%{gittag}/%{name}-%{version}-%{release}.tar.gz  
+Source0:  https://github.com/miguelgila/fakerootuidsync/archive/%{gittag}/%{name}-%{version}-%{release}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 URL: https://github.com/miguelgila/fakerootuidsync
-Requires: python3 
+Requires: python3
 Requires: systemd
 %{?el7:Requires: python36-PyYAML}
 %if 0%{?suse_version} >= 15
@@ -37,13 +37,13 @@ install -m 644 fakerootuidsync.yaml \
 install -D -m644 fakerootuidsync.service \
     %{buildroot}%{_unitdir}/fakerootuidsync.service
 
-%post 
+%post
 %systemd_post fakerootuidsync.service
 
-%preun 
+%preun
 %systemd_preun fakerootuidsync.service
 
-%postun 
+%postun
 %systemd_postun_with_restart fakerootuidsync.service
 
 %clean
